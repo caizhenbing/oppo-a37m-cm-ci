@@ -72,14 +72,15 @@ jobs:
           echo "======================="
           df -h
       
-      - name : Upload Logs
-        uses: actions/upload-artifact@master
-        with:
-          name: lineageos-source-tree
-          path: lineage/treelog
+#      - name : Upload Logs
+#        uses: actions/upload-artifact@master
+#        with:
+#          name: lineageos-source-tree
+#          path: lineage/treelog
       
       - name: Build CyanogenMod OS
         run: |
+          false
           cd lineage
           sh device/oppo/A37/patches/install.sh
           source build/envsetup.sh
@@ -91,9 +92,9 @@ jobs:
           unset JAVA_HOME_17_X64
           make
       
-#      - name: Debug
-#        if: ${{ failure() }}
-#        uses: mxschmitt/action-tmate@v3
+      - name: Debug
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
           
       - name : Upload ROM
         uses: actions/upload-artifact@master
