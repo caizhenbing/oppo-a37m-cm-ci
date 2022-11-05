@@ -57,11 +57,11 @@ jobs:
           cd lineage
           repo init --depth=1 -u https://github.com/LineageOS/android.git -b cm-12.1
           repo sync -c -f --no-tags --no-clone-bundle -j 16
-          git clone https://github.com/Jakesoso/android_device_oppo_A37.git -b cm12.1 --depth=1 device/oppo/a37
-          git clone https://github.com/peasoft/android_vendor_oppo_A37.git --depth=1 vendor/oppo/a37
+          git clone https://github.com/peasoft/android_device_oppo_A37.git -b cm12.1 --depth=1 device/oppo/A37
+          git clone https://github.com/peasoft/android_vendor_oppo_A37.git --depth=1 vendor/oppo/A37
           find . -name ".git"  | xargs rm -rf
           rm -rf .repo
-          rm -rf device/oppo/a37/README.md
+          rm -rf device/oppo/A37/README.md
         shell: bash
         
       - name: Space Post
@@ -80,10 +80,10 @@ jobs:
       - name: Build CyanogenMod OS
         run: |
           cd lineage
-          sh device/oppo/a37/patches/install.sh
+          sh device/oppo/A37/patches/install.sh
           source build/envsetup.sh
-          lunch cm_a37-user
-          make
+          lunch cm_A37-user
+          make -j8
       
       - name: Debug
         if: ${{ failure() }}
