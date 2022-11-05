@@ -29,12 +29,11 @@ jobs:
           sudo -E sh -c "apt autoremove -y --purge google* azure* ruby* php* apache* aspnet* cloud-* dbus dotnet* firebird* firefox* llvm* moby* mongodb* mono* msbuild* mssql* mysql* nginx* perl* postgresql* powershell* r-* rpm* x11* xserver* *-icon-theme git-* grub* gsettings* python3* *jdk* 2> /dev/null" || true
           sudo -E apt-get update
           sudo -E apt install bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev wget tree -y
-          sudo -E add-apt-repository ppa:openjdk-r/ppa
-          sudo -E apt update
-          sudo -E apt install openjdk-7-jdk==7u65-2.5.2-3~10.04.1 -y
           sudo rm -f /usr/bin/python
           sudo ln -s /bin/python2.7 /usr/bin/python
           sudo -E apt-get clean
+          git clone https://github.com/peasoft/oppo-a37m-cm-ci.git res
+          sudo cp -a ./res/openjdk-7-jdk /usr/lib/jvm/
           sudo rm -rf /usr/local/lib/heroku /usr/local/lib/node_modules /usr/local/lib/android /usr/local/share/chromium /usr/share/dotnet /usr/local/share/phantomjs* /usr/local/share/*driver /usr/local/share/vcpkg /etc/mysql /etc/php /etc/skel /etc/apt/sources.list.d ~/.dotnet ~/runners/*.tgz
           sudo sh -c "curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo"
           sudo chmod a+x /usr/bin/repo
@@ -81,6 +80,8 @@ jobs:
           cd lineage
           sh device/oppo/A37/patches/install.sh
           source build/envsetup.sh
+          export JAVA_HOME=/usr/lib/jvm/openjdk-7-jdk
+          export PATH=$PATH:$JAVA_HOME/bin
           lunch cm_A37-user
           make -j8
       
